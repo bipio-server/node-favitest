@@ -1,8 +1,7 @@
 node-favitest
 =============
 
-Returns a fully resolved a [Favicon URL](http://en.wikipedia.org/wiki/Favicon) from any URL and [URI Schema](http://en.wikipedia.org/wiki/URI_scheme).  Falls through from parsed HTML headers, then HTTP response headers, then default /favicon.ico. When a URL has been derived, it is confirmed with a HTTP HEAD request and follows
-redirects.
+Returns a fully resolved a [Favicon URL](http://en.wikipedia.org/wiki/Favicon) from any URL and [URI Schema](http://en.wikipedia.org/wiki/URI_scheme).  Falls through from parsed HTML headers, then HTTP response headers, then default /favicon.ico. When a URL has been derived, it is confirmed with a HTTP HEAD request after following any redirects.
 
 Callback produces an error, resolved URL, file suffix and mime type.
 
