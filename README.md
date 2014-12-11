@@ -1,7 +1,7 @@
 node-favitest
 =============
 
-Returns a fully resolved a Favicon URL.  First by parsing HTML headers, then HTTP response headers, then default /favicon.ico, then finally by checking it can be fetched with a HTTP HEAD.
+Returns a fully resolved a Favicon URL.  Falling through from parsed HTML headers, then HTTP response headers, then default /favicon.ico. When a URL has been derived, it is confirmed with a HTTP HEAD request.
 
 Callback produces an error, resolved URL, file suffix and mime type.
 
