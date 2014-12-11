@@ -28,7 +28,10 @@ tldtools.init();
 module.exports =  function(url, next) {
   var self = this,
     tokens = tldtools.extract(url),
-    host = tokens.url_tokens.protocol + '//' + tokens.url_tokens.host,
+    scheme = (/http(s?)/.test(tokens.url_tokens.protocol) ? tokens.url_tokens.protocol : 'http:') ,
+    host = scheme + '//' + tokens.url_tokens.hostname,
+    // @todo
+    //hostTLD = scheme + '//' + tokens.domain + '.' + tokens.tld,
     fileSuffix = '.ico',
     favUrlDefault = host + '/favicon' + fileSuffix;
 
@@ -64,11 +67,13 @@ module.exports =  function(url, next) {
       suffix = '.' + favUrl.split('.').pop().replace(/\?.*$/, '');
 
       request.head(favUrl, function(err, res) {
+
         if (err) {
           next(err);
         } else if (200 !== res.statusCode) {
           next('Not Found');
         } else {
+          favUrl = res.request.href;
           next(false, favUrl, suffix, mime.lookup(favUrl));
         }
       });

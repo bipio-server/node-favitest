@@ -23,4 +23,26 @@ describe('favitest', function() {
       done();
     });
   });
+
+
+  it('should resolve a favicon from an alternate URI scheme', function(done) {
+    favitest('mailto://hello@bip.io', function(err, url, suffix, mime) {
+      err.should.be.false;
+      url.should.equal('https://bip.io/favicon.ico');
+      suffix.should.equal('.ico');
+      mime.should.equal('image/x-icon');
+      done();
+    });
+  });
+
+  // @todo
+  xit('should resolve a favicon from an alternate URI scheme on a subdomain', function(done) {
+    favitest('mailto://npm@m.bip.io', function(err, url, suffix, mime) {
+      err.should.be.false;
+      url.should.equal('https://bip.io/favicon.ico');
+      suffix.should.equal('.ico');
+      mime.should.equal('image/x-icon');
+      done();
+    });
+  });
 });
