@@ -1,6 +1,6 @@
 {
   "name": "favitest",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Diligently resolves a Favicon from any URL/URI Scheme",
   "main": "index.js",
   "scripts": {
@@ -24,6 +24,7 @@
   "dependencies": {
     "htmlparser2": "^3.8.2",
     "mime": "^1.2.11",
+    "q": "^1.1.2",
     "request": "^2.51.0",
     "tldtools": "0.0.19"
   },

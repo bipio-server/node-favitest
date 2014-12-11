@@ -21,11 +21,15 @@
 var request = require('request'),
   htmlparser = require('htmlparser2'),
   mime = require('mime'),
-  tldtools = require('tldtools');
+  tldtools = require('tldtools'),
+  Q = require('q'),
+  tldDefer = Q.defer();
 
-tldtools.init();
+tldtools.init(function() {
+  tldDefer.resolve();
+});
 
-module.exports =  function(url, next) {
+var favi = function(url, next) {
   var self = this,
     tokens = tldtools.extract(url),
     scheme = (/http(s?)/.test(tokens.url_tokens.protocol) ? tokens.url_tokens.protocol : 'http:') ,
@@ -67,16 +71,22 @@ module.exports =  function(url, next) {
       suffix = '.' + favUrl.split('.').pop().replace(/\?.*$/, '');
 
       request.head(favUrl, function(err, res) {
-
         if (err) {
           next(err);
         } else if (200 !== res.statusCode) {
           next('Not Found');
         } else {
           favUrl = res.request.href;
-          next(false, favUrl, suffix, mime.lookup(favUrl));
+
+          next(false, favUrl, suffix, mime.lookup(favUrl), tokens.domain + '.' + tokens.tld);
         }
       });
     }
   });
 };
+
+module.exports = function(url, next) {
+  tldDefer.promise.then(function() {
+    favi(url, next);
+  });
+}

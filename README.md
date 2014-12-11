@@ -5,7 +5,7 @@ Returns a fully resolved [Favicon URL](http://en.wikipedia.org/wiki/Favicon) fro
 
 Falls through from parsed HTML headers, then HTTP response headers, then default /favicon.ico. When a URL has been derived, it is confirmed with a HTTP HEAD request after following any redirects.
 
-Callback produces an error, resolved URL, file suffix and mime type.
+Callback produces an error, resolved URL, file suffix, mime type and domain name
 
 Enjoy.
 
@@ -22,7 +22,7 @@ var favitest = require('favitest');
 
 favitest(
   'https://github.com/bipio-server/node-favitest',
-  function(err, url, suffix, mime) {
+  function(err, url, suffix, mime, domain) {
     console.log(arguments);
   }
 );
@@ -35,7 +35,8 @@ Will produce :
   '0': false,
   '1': 'https://assets-cdn.github.com/favicon.ico',
   '2': '.ico',
-  '3': 'image/x-icon'
+  '3': 'image/x-icon',
+  '4': 'github.com'
 }
 ```
 
