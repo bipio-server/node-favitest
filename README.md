@@ -9,6 +9,8 @@ Callback produces an error, resolved URL, file suffix and mime type.
 
 Enjoy.
 
+<img src="https://travis-ci.org/bipio-server/node-favitest.svg" />
+
 ## Instalation
 
 `npm install favitest`
