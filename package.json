@@ -1,6 +1,6 @@
 {
   "name": "favitest",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Diligently resolves a Favicon from any URL/URI Scheme",
   "main": "index.js",
   "scripts": {
