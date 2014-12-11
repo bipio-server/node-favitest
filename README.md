@@ -7,6 +7,10 @@ Callback produces an error, resolved URL, file suffix and mime type.
 
 Enjoy.
 
+## Instalation
+
+`npm install favitest`
+
 ## Usage
 
 ```
