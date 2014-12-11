@@ -12,22 +12,27 @@ Enjoy.
 ```
 var favitest = require('favitest');
 
-favitest('https://github.com/bipio-server/node-favitest', function(err, url, suffix, mime) {
-  console.log(arguments);
-});
+favitest(
+  'https://github.com/bipio-server/node-favitest',
+  function(err, url, suffix, mime) {
+    console.log(arguments);
+  }
+);
 ```
 
 Will produce :
 
 ```
-{ '0': false,
+{
+  '0': false,
   '1': 'https://assets-cdn.github.com/favicon.ico',
   '2': '.ico',
-  '3': 'image/x-icon' }
+  '3': 'image/x-icon'
+}
 ```
 
 ## License
 
 [GPLv3](gpl-3.0.txt)
 
-Copyright (c) 2014-2015 WoT.IO inc
+Copyright (c) 2014-2015 [WoT.IO](http://wot.io) inc
