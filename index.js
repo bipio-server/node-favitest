@@ -64,7 +64,9 @@ module.exports =  function(url, next) {
       suffix = '.' + favUrl.split('.').pop().replace(/\?.*$/, '');
 
       request.head(favUrl, function(err, res) {
-        if (200 !== res.statusCode) {
+        if (err) {
+          next(err);
+        } else if (200 !== res.statusCode) {
           next('Not Found');
         } else {
           next(false, favUrl, suffix, mime.lookup(favUrl));
