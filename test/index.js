@@ -39,7 +39,7 @@ describe('favitest', function() {
   });
 
   // @todo
-  xit('should resolve a favicon from an alternate URI scheme on a subdomain', function(done) {
+  it('should resolve a favicon from an alternate URI scheme on a subdomain', function(done) {
     favitest('mailto://npm@m.bip.io', function(err, url, suffix, mime, domain) {
       err.should.be.false;
       url.should.equal('https://bip.io/favicon.ico');

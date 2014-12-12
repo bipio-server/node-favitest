@@ -29,13 +29,8 @@ tldtools.init(function() {
   tldDefer.resolve();
 });
 
-var favi = function(url, next) {
+var favi = function(host, next) {
   var self = this,
-    tokens = tldtools.extract(url),
-    scheme = (/http(s?)/.test(tokens.url_tokens.protocol) ? tokens.url_tokens.protocol : 'http:') ,
-    host = scheme + '//' + tokens.url_tokens.hostname,
-    // @todo
-    //hostTLD = scheme + '//' + tokens.domain + '.' + tokens.tld,
     fileSuffix = '.ico',
     favUrlDefault = host + '/favicon' + fileSuffix;
 
@@ -76,17 +71,41 @@ var favi = function(url, next) {
         } else if (200 !== res.statusCode) {
           next('Not Found');
         } else {
-          favUrl = res.request.href;
-
-          next(false, favUrl, suffix, mime.lookup(favUrl), tokens.domain + '.' + tokens.tld);
+          next(false, res.request.href);
         }
       });
     }
   });
 };
 
+var respond = function(err, favURL, URLTokens, next) {
+  if (err) {
+    next(err);
+  } else {
+    next(err, favURL, suffix, mime.lookup(favURL), URLTokens.domain + '.' + URLTokens.tld);
+  }
+}
+
 module.exports = function(url, next) {
   tldDefer.promise.then(function() {
-    favi(url, next);
+    var self = this,
+      tokens = tldtools.extract(url),
+      scheme = (/http(s?)/.test(tokens.url_tokens.protocol) ? tokens.url_tokens.protocol : 'http:') ,
+      host = scheme + '//' + tokens.url_tokens.hostname,
+      // @todo
+      hostDomain = scheme + '//' + tokens.domain + '.' + tokens.tld;
+
+    favi(host, function(err, favURL) {
+      if (err) {
+        // subdomain failed? fall back to domain name
+        if (host !== hostDomain) {
+          favi(hostDomain, function(err, favURL) {
+            respond(err, favURL, tokens, next);
+          });
+        }
+      } else {
+        respond(err, favURL, tokens, next);
+      }
+    });
   });
 }
