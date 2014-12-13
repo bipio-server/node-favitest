@@ -12,7 +12,7 @@ Enjoy.
 
 <img src="https://travis-ci.org/bipio-server/node-favitest.svg" />
 
-## Instalation
+## Installation
 
 `npm install favitest`
 
