@@ -92,7 +92,6 @@ module.exports = function(url, next) {
       tokens = tldtools.extract(url),
       scheme = (/http(s?)/.test(tokens.url_tokens.protocol) ? tokens.url_tokens.protocol : 'http:') ,
       host = scheme + '//' + tokens.url_tokens.hostname,
-      // @todo
       hostDomain = scheme + '//' + tokens.domain + '.' + tokens.tld;
 
     favi(host, function(err, favURL) {
@@ -102,6 +101,8 @@ module.exports = function(url, next) {
           favi(hostDomain, function(err, favURL) {
             respond(err, favURL, tokens, next);
           });
+        } else {
+          next(err);
         }
       } else {
         respond(err, favURL, tokens, next);
