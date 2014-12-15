@@ -90,7 +90,7 @@ module.exports = function(url, next) {
   tldDefer.promise.then(function() {
     var self = this,
       tokens = tldtools.extract(url),
-      scheme = (/^http)/.test(tokens.url_tokens.protocol) ? tokens.url_tokens.protocol : 'http:') ,
+      scheme = (/^http/.test(tokens.url_tokens.protocol) ? tokens.url_tokens.protocol : 'http:'),
       host = scheme + '//' + tokens.url_tokens.hostname,
       hostDomain = scheme + '//' + tokens.domain + '.' + tokens.tld;
 
